@@ -1,0 +1,77 @@
+~~ Shipment: ~~
+NewYork        23      14      1
+NewYork        23      14      1
+~~ Shipment: ~~
+Miami   25      25      25
+Miami   25      25      25
+~~ Shipment: ~~
+LosAngeles     40      13      17
+LosAngeles     40      13      17
+~~ Shipment: ~~
+Houston 100     30      10
+Houston 100     30      10
+~~ Shipment: ~~
+Chicago 42      23      19
+Chicago 42      23      19
+~~ Shipment: ~~
+NewYork        0       0       15
+NewYork        23      14      16
+~~ Shipment: ~~
+Miami   13      17      21
+Miami   38      42      46
+-- Order: --
+LosAngeles     15      10      15
+LosAngeles     25      3       2
+TOTAL: $227.50
+-- Order: --
+NewYork        12      24      8
+NewYork        11      14      8
+TOTAL: $92.00
+ALERT: Order Unfulfilled
+-- Order: --
+Houston 75      45      10
+Houston 25      30      0
+TOTAL: $235.00
+ALERT: Order Unfulfilled
+-- Order: --
+Chicago 20      15      15
+Chicago 22      8       4
+TOTAL: $272.50
+-- Order: --
+NewYork        15      0       0
+15 of item #1 shipped from Chicago to NewYork.
+Chicago 7       8       4
+NewYork        11      14      8
+TOTAL: $33.00
+~~ Shipment: ~~
+LosAngeles     10      20      10
+LosAngeles     35      23      12
+~~ Shipment: ~~
+Houston 0       30      40
+Houston 25      60      40
+-- Order: --
+NewYork        15      15      25
+25 of item #3 shipped from Houston to NewYork.
+Houston 25      60      15
+NewYork        11      14      8
+TOTAL: $233.75
+ALERT: Order Unfulfilled
+-- Order: --
+Chicago 75      30      40
+30 of item #2 shipped from Miami to Chicago.
+Miami   38      12      46
+40 of item #3 shipped from Miami to Chicago.
+Miami   38      12      6
+Chicago 7       8       4
+TOTAL: $605.00
+ALERT: Order Unfulfilled
+~~ Shipment: ~~
+NewYork        20      15      20
+NewYork        31      29      28
+-- Order: --
+Houston 10      20      10
+Houston 15      40      5
+TOTAL: $245.00
+
+Process returned 0 (0x0)   execution time : 0.024 s
+Press any key to continue.

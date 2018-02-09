@@ -1,0 +1,24 @@
+//Daniel Alvarez
+//CISC3130 - Data Structures
+//M. Lowenthal
+//Warehouse.h
+
+#ifndef WAREHOUSE.H
+#define WAREHOUSE.H
+
+#include <iostream>
+
+using namespace std;
+
+class Warehouse {
+	public:
+		string name;
+		int quantities[3];
+
+		void print(){ //Prints out a description of the warehouse
+			cout << name << '\t' << quantities[0] << '\t' << quantities[1] << '\t' << quantities[2] << '\n';
+		}
+		
+};
+
+#endif

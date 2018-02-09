@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1455526099 source:g:\dropbox\college\brooklyn college\_spr16\cisc3130\cb_hw1\homework2\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	"Warehouse.h"
+	"Card.h"
+	"FileIO/FileIO.h"
+
+1455526140 g:\dropbox\college\brooklyn college\_spr16\cisc3130\cb_hw1\homework2\warehouse.h
+	<sstream>
+
+1455526186 g:\dropbox\college\brooklyn college\_spr16\cisc3130\cb_hw1\homework2\card.h
+

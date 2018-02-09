@@ -1,0 +1,155 @@
+//Daniel Alvarez
+//CISC3130 - Data Structures
+//M. Lowenthal
+//main.cpp
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include "Warehouse.h"
+#include "Card.h"
+using namespace std;
+
+const int numWarehouses = 5; //Total number of Warehouses
+string warehouseNames[numWarehouses] = {"NewYork", "LosAngeles", "Miami", "Houston", "Chicago"};
+
+//Pulls the prices from the passed in card name. 
+string warehousePrices(string card){
+	string wareName = getCity(card);
+	int location = card.find(wareName);
+	return card.substr(location + wareName.length());
+}
+
+//Pull the name of the city from our global array of city names.
+string getCity(string card){
+    for (int i = 0; i < numWarehouses; i++) {
+		if (card.find(warehouseNames[i]) != string::npos) {
+            return warehouseNames[i];
+        }
+    }
+	return ""; //return empty if nothing found
+}
+
+//Finds the optimal warehouse that can handle the order
+Warehouse *mostStock(Warehouse warehouses[], int asking, int item){
+
+    Warehouse *workingWarehouse = NULL;
+    //checks to see if this warehouse has enough of the item than the last one
+    for (int i = 0; i<numWarehouses; i++) {
+        if (warehouses[i].quantities[item] >= asking) {Q
+            if (workingWarehouse == NULL){
+                workingWarehouse = &warehouses[i];
+            }
+            else if(warehouses[i].quantities[item] > (*workingWarehouse).quantities[item]){
+                workingWarehouse = &warehouses[i];
+            }
+        }
+    }
+
+    return workingWarehouse;
+}
+
+int main(){
+    Warehouse warehouses[numWarehouses];//Array of warehouses to start with
+
+    for (int i=0; i<numWarehouses; i++) {
+        warehouses[i].name = warehouseNames[i];
+        warehouses[i].quantities[0] = 0;
+        warehouses[i].quantities[1] = 0;
+        warehouses[i].quantities[2] = 0;
+    }
+	
+	ifstream records; //Now we can begin working with our files
+    string fileName = "cards.txt";
+	
+	ifstream records; 
+	records.open("cards.txt"); //Open our records file
+
+    int quantities[3];
+	double prices[3];
+
+    string pricesStr; 
+	getline(records, pricesStr); //now we grab prices from the records file...
+
+    pricesConvert(pricesStr, prices); //...And push them into the array
+		
+	//begin reading in the lines of the records file
+    while (!records.eof()) {
+
+		string cardString;
+
+		getline(records, cardString);
+
+		if (cardString != "") { //Is the line empty?
+			//if it is, then begin processing the card
+			Card card;
+			card.type = cardString[0];
+			card.city = getCity(cardString);
+
+			//Store the quantities into the card.
+			card.amount1 = quantities[0];
+			card.amount2 = quantities[1];
+			card.amount3 = quantities[2];
+
+
+			//Now go and pick the right warehouse.
+			Warehouse &workingWarehouse = *findWareName(card.city, warehouses);
+			cout << card.print();
+
+			//Handling of the shipments first
+			if (card.type == 's') {
+				workingWarehouse.quantities[0] += card.amount1;
+				workingWarehouse.quantities[1] += card.amount2;
+				workingWarehouse.quantities[2] += card.amount3;
+
+				cout << workingWarehouse.print(); //Print out the values of the warehouse.
+			}
+				
+			//Begin processing the Orders here
+			else if(card.type == 'o'){
+				double price = 0;
+				bool isFulfilled = true;
+
+				for(int i=0; i <3; i++){
+					//Check if the enough of the item is availible...
+					if (workingWarehouse.quantities[i] >= quantities[i]) {
+						price += quantities[i] * prices[i];
+						workingWarehouse.quantities[i] -= quantities[i];
+
+					}
+					//if not, then the warehouse doesn't have it availible.
+					else{
+
+						//Find an Alt warehouse just in case for now.
+						Warehouse *alternateWarehouse = mostStock(warehouses, i, quantities[i]);
+					  
+						//if no Alt-warehouse, then the order is simply unfillible
+						if (alternateWarehouse == NULL || !(alternateWarehouse->quantities[i] >= quantities[i])) {
+							isFulfilled = false;
+						}
+						//But if there IS an alt, then we can begin processing from there
+						else{
+							(*alternateWarehouse).quantities[i] -= quantities[i];
+							price += quantities[i] * (prices[i] * 1.1); // 10% surcharge for going to the other warehouse.
+							cout << quantities[i] << " of item #" << i+1 << " shipped from ";
+							cout << (*alternateWarehouse).name << " to " << workingWarehouse.name << "." << endl;
+
+							cout << alternateWarehouse->print();
+						}
+
+					}
+				}
+
+				cout << workingWarehouse.print();
+				cout << "TOTAL: $" << price << endl;
+
+				if(!isFulfilled){ //Tell them if the order was fulfilled or not
+						cout << "ALERT: Order Unfulfilled" << endl;
+				}
+
+			}
+
+		}
+	}
+    	return 0;
+}

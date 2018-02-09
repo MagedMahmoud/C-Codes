@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1456102275 source:g:\dropbox\college\brooklyn college\_spr16\cisc3130\cb_hw1\homework1\main.cpp
+	<iostream>
+	<fstream>
+	<exception>
+	"Record.h"
+	"Customer.h"
+
+1455526782 g:\dropbox\college\brooklyn college\_spr16\cisc3130\cb_hw1\homework1\record.h
+	<iostream>
+	<iomanip>
+
+1455526756 g:\dropbox\college\brooklyn college\_spr16\cisc3130\cb_hw1\homework1\customer.h
+	<iostream>
+	<iomanip>
+

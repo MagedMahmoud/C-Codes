@@ -1,0 +1,28 @@
+//Daniel Alvarez
+//CISC3130 - Data Structures
+//M. Lowenthal
+//Card.h
+
+#ifndef CARD_H
+#define CARD_H
+
+#include <iostream>
+using namespace std;
+
+class Card {
+	public:
+		char type;
+		string city;
+		int amt1 = 0;
+		int amt2 = 0;
+		int amt3 = 0;
+
+		void print(){ //Prints a description of the card
+			
+			//Is the card an order or a shipment?
+			string heading = type == 'o' ? "~~ Order: ~~\n" : "~~ Shipment: ~~\n";
+			cout << heading << city << '\t' << amt1 << '\t' << amt2 << '\t' << amt3 << '\n';
+
+		}
+};
+#endif
